@@ -188,22 +188,20 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     };
   
     const product = await Product.findById(productId);
-    
-    const isReviewed = product.reviews.find(
-      (rev) => {
-        (typeof rev.user == "undefined" || rev.user.toString() === req.user._id.toString())
-      }
-      );
+    //  revUser = rev.user.toString();
+    // const isReviewed = product.reviews.find(
+    //   (rev) => rev.user.toString() === req.user._id.toString()
+    // );
   
-    if (isReviewed) {
+    // if (isReviewed) {
       product.reviews.forEach((rev) => {
-        (typeof rev.user == "undefined" || rev.user.toString() === req.user._id.toString())
+        // if (rev.user.toString() === req.user._id.toString())
           (rev.ratings = ratings), (rev.comment = comment);
       });
-    } else {
+    // } else {
       product.reviews.push(review);
       product.numOfReviews = product.reviews.length;
-    }
+    // }
   
     let avg = 0;
   
